@@ -11,7 +11,7 @@ In Go's time package, the LoadLocation method will search multiple possible loca
 // known installation locations on Unix systems,
 // and finally looks in $GOROOT/lib/time/zoneinfo.zip.
 ```
-For example, if Go fails to find a valid time zone file at the location specified by the ZONEINFO environment variable, then it will proceed to look in the OS on Unix systems and then look in the GOROOT. These backup locations may be using a different version of the time zone database. When Go fails to use the ZONEINFO location, it fails silently, so there is no way to tell if Go has defaulted to a backup location.
+For example, if Go fails to find a valid time zone file at the location specified by the ZONEINFO environment variable, then it will proceed to look in the OS on Unix systems and finally look in $GOROOT. These backup locations may be using a different version of the time zone database. When Go fails to use the ZONEINFO location, it fails silently, so there is no way to tell if Go has defaulted to a backup location.
 
 Fortunately, in Go 1.10 the [LoadLocationFromTZData function](https://golang.org/pkg/time/#LoadLocationFromTZData) was added that allows us to directly specify the data we'd like to load the location from. This is not the most user-friendly method though as we have to hand it the bytes that we want to use.
 
@@ -30,15 +30,18 @@ I'm sure there are several ways to produce a directory of time zone database fil
 
 ## Functions
 #### func GetZoneInfoPath
-```func GetZoneInfoPath() string```
+```func GetZoneInfoPath() string
+```
 View the current value for the path to the time zone database directory.
 
 #### func SetZoneInfoPath
-```func SetZoneInfoPath(path string)```
+```func SetZoneInfoPath(path string)
+```
 Set the path to the time zone database directory
 
 #### func LoadLocation
-```func LoadLocation(name string) (*time.Location, error)```
+```func LoadLocation(name string) (*time.Location, error)
+```
 LoadLocation has the same signature as the LoadLocation method from Go's time package. It looks in the specified time zone database directory and returns a \*time.Location if successful or an error if unsuccessful.
 
 ## Example
@@ -50,6 +53,9 @@ knozone.SetZoneInfoPath(MY_TIME_ZONE_DB_PATH)
 
 //Load the Africa/Kigali location from our directory
 loc, err := knozone.LoadLocation("Africa/Kigali")
+if err != nil {
+  //Handle error
+}
 
 //Set a time using our location - using the time package exclusively here
 kigaliTime := time.Date(2020, time.January, 2, 9, 45, 0, 0, loc)
