@@ -30,17 +30,20 @@ I'm sure there are several ways to produce a directory of time zone database fil
 
 ## Functions
 #### func GetZoneInfoPath
-```func GetZoneInfoPath() string
+```
+func GetZoneInfoPath() string
 ```
 View the current value for the path to the time zone database directory.
 
 #### func SetZoneInfoPath
-```func SetZoneInfoPath(path string)
+```
+func SetZoneInfoPath(path string)
 ```
 Set the path to the time zone database directory
 
 #### func LoadLocation
-```func LoadLocation(name string) (*time.Location, error)
+```
+func LoadLocation(name string) (*time.Location, error)
 ```
 LoadLocation has the same signature as the LoadLocation method from Go's time package. It looks in the specified time zone database directory and returns a \*time.Location if successful or an error if unsuccessful.
 
